@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { createUser, userSignup } from "../models/UserModel";
+import { createUser, userLogin, userSignup } from "../models/UserModel";
 import { createResponse } from "../utils/response";
 import httpStatus from "http-status";
 import { message } from "../utils/message";
@@ -11,7 +11,7 @@ const signUp = async (req: Request, res: Response) => {
         return await createResponse(
             res,
             httpStatus.CREATED,
-            message.USER_CREATED,
+            message.USER_CREATED.replace("#", "signup"),
             user
         );
     } catch (error: any) {
@@ -21,8 +21,26 @@ const signUp = async (req: Request, res: Response) => {
             error.message,
             {}
         );
+    }
+};
 
+const login = async (req: Request, res: Response) => {
+    try {
+        const user = await userLogin(req.body);
 
+        return await createResponse(
+            res,
+            httpStatus.OK,
+            message.USER_CREATED.replace("#", "login"),
+            {}
+        );
+    } catch (error: any) {
+        return await createResponse(
+            res,
+            error.statusCode ? error.statusCode : httpStatus.SERVICE_UNAVAILABLE,
+            error.message,
+            {}
+        );
     }
 };
 
@@ -39,4 +57,4 @@ const addUser = async (req: Request, res: Response): Promise<Response> => {
         });
     }
 };
-export { signUp, addUser };
+export { signUp, login, addUser };
