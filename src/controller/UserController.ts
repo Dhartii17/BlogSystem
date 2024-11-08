@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { createUser, userSignup } from "../models/UserModel";
+import { addBlog, createUser, userSignup } from "../models/UserModel";
 import { createResponse } from "../utils/response";
 import httpStatus from "http-status";
 import { message } from "../utils/message";
@@ -39,4 +39,22 @@ const addUser = async (req: Request, res: Response): Promise<Response> => {
         });
     }
 };
-export { signUp, addUser };
+
+const createBlog = async (req: Request, res: Response): Promise<Response> => {
+    try {
+
+        const blog = await addBlog(req.body, req.file)
+
+        console.log("blog", blog);
+
+        return await createResponse(res, httpStatus.OK, message.VALID_INPUT, {})
+
+
+
+    } catch (error: any) {
+        return await createResponse(res, error.statusCode ? error.statusCode : httpStatus.SERVICE_UNAVAILABLE, message.VALID_INPUT, {})
+
+
+    }
+}
+export { signUp, addUser, createBlog };

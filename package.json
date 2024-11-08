@@ -21,9 +21,11 @@
   },
   "dependencies": {
     "@types/lodash": "^4.17.13",
+    "@types/multer": "^1.4.12",
     "http-status": "^1.6.2",
     "joi": "^17.13.3",
     "loadsh": "^0.0.4",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "multer": "^1.4.5-lts.1"
   }
 }
