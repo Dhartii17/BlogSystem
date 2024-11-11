@@ -1,8 +1,8 @@
-import { PrismaClient } from "@prisma/client";
-import { appError } from "../utils/appError";
-import httpStatus from "http-status";
-import { message } from "../utils/message";
-import bcrypt from "bcrypt";
+import { PrismaClient } from '@prisma/client';
+import { appError } from '../utils/appError';
+import httpStatus from 'http-status';
+import { message } from '../utils/message';
+import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 const getUserByEmail = async (email: string) => {
@@ -33,26 +33,21 @@ const createUser = async (data: any) => {
 
 const userSignup = async (data: any) => {
     try {
-        console.log("data", data);
-
         const { name, email } = data;
-        console.log("fname", name);
-        console.log("email", email);
 
         if (!email) {
             throw new appError(
                 httpStatus.BAD_REQUEST,
-                message.FIELD_REQUIRED.replace("#", "email")
+                message.FIELD_REQUIRED.replace('#', 'email')
             );
         }
 
         const existUser = await getUserByEmail(email);
-        console.log("existUser", existUser);
-        console.log("existUser", existUser.length);
+
         if (existUser.length > 0) {
             throw new appError(
                 httpStatus.BAD_REQUEST,
-                message.USER_EXIST.replace("#", "User")
+                message.USER_EXIST.replace('#', 'User')
             );
         }
         const newUser = await createUser(data);
@@ -61,7 +56,6 @@ const userSignup = async (data: any) => {
         throw new appError(error.statusCode, error.message);
     }
 };
-
 
 const userLogin = async (data: any) => {
     try {
@@ -72,7 +66,7 @@ const userLogin = async (data: any) => {
         if (CheckEmailExist.length <= 0) {
             throw new appError(
                 httpStatus.BAD_REQUEST,
-                message.USER_NOT_EXIST.replace("#", "User")
+                message.USER_NOT_EXIST.replace('#', 'User')
             );
         }
 
@@ -90,7 +84,6 @@ const userLogin = async (data: any) => {
     }
 };
 
-
 const addBlog = async (bodyData: any, fileData: any) => {
     try {
         const { type, title, description, userId } = bodyData;
@@ -98,7 +91,7 @@ const addBlog = async (bodyData: any, fileData: any) => {
         if (!fileData || !fileData.path) {
             throw new appError(
                 httpStatus.BAD_REQUEST,
-                message.FIELD_REQUIRED.replace("#", "Image")
+                message.FIELD_REQUIRED.replace('#', 'Image')
             );
         }
 

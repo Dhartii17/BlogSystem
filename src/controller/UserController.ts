@@ -1,8 +1,13 @@
-import express, { Request, Response } from "express";
-import { addBlog, createUser, userLogin, userSignup } from "../models/UserModel";
-import { createResponse } from "../utils/response";
-import httpStatus from "http-status";
-import { message } from "../utils/message";
+import express, { Request, Response } from 'express';
+import {
+    addBlog,
+    createUser,
+    userLogin,
+    userSignup,
+} from '../models/UserModel';
+import { createResponse } from '../utils/response';
+import httpStatus from 'http-status';
+import { message } from '../utils/message';
 
 const signUp = async (req: Request, res: Response) => {
     try {
@@ -11,7 +16,7 @@ const signUp = async (req: Request, res: Response) => {
         return await createResponse(
             res,
             httpStatus.CREATED,
-            message.USER_CREATED.replace("#", "signup"),
+            message.USER_CREATED.replace('#', 'signup'),
             user
         );
     } catch (error: any) {
@@ -31,7 +36,7 @@ const login = async (req: Request, res: Response) => {
         return await createResponse(
             res,
             httpStatus.OK,
-            message.USER_CREATED.replace("#", "login"),
+            message.USER_CREATED.replace('#', 'login'),
             {}
         );
     } catch (error: any) {
@@ -49,10 +54,10 @@ const addUser = async (req: Request, res: Response): Promise<Response> => {
         const newUser = await createUser(req.body);
         return res
             .status(201)
-            .json({ message: "User created successfully!.", user: newUser });
+            .json({ message: 'User created successfully!.', user: newUser });
     } catch (error) {
         return res.status(500).json({
-            message: "Server is not working!",
+            message: 'Server is not working!',
             error: error,
         });
     }
@@ -62,12 +67,10 @@ const createBlog = async (req: Request, res: Response): Promise<Response> => {
     try {
         const blog = await addBlog(req.body, req.file);
 
-        console.log("blog", blog);
-
         return await createResponse(
             res,
             httpStatus.CREATED,
-            message.CREATED.replace("#", "Blog"),
+            message.CREATED.replace('#', 'Blog'),
             blog
         );
     } catch (error: any) {
