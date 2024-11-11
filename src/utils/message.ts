@@ -1,6 +1,7 @@
 class message {
     // Success
     static USER_CREATED = `User signup successfully`;
+    static CREATED = `# created successfullu`;
 
 
     //Error

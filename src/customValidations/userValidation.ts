@@ -41,6 +41,19 @@ const createBlogValidation = {
                 "any.required": message.FIELD_REQUIRED.replace("#", "User id"),
                 "string.empty": message.VALID_INPUT.replace("#", "user id"),
             }),
+        image: Joi.object()
+            .keys({
+                mimetype: Joi.string()
+                    .valid('image/jpeg', 'image/png', 'image/gif') // Add other valid types as needed
+                    .required()
+                    .messages({
+                        'any.required': message.FIELD_REQUIRED.replace('#', 'Image'),
+                        'any.invalid': message.VALID_INPUT.replace('#', 'Image'),
+                    }),
+
+            })
+            .optional(), // This is optional, make it required if necessary
+
     }),
 };
 

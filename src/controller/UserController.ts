@@ -21,8 +21,6 @@ const signUp = async (req: Request, res: Response) => {
             error.message,
             {}
         );
-
-
     }
 };
 
@@ -42,19 +40,23 @@ const addUser = async (req: Request, res: Response): Promise<Response> => {
 
 const createBlog = async (req: Request, res: Response): Promise<Response> => {
     try {
-
-        const blog = await addBlog(req.body, req.file)
+        const blog = await addBlog(req.body, req.file);
 
         console.log("blog", blog);
 
-        return await createResponse(res, httpStatus.OK, message.VALID_INPUT, {})
-
-
-
+        return await createResponse(
+            res,
+            httpStatus.CREATED,
+            message.CREATED.replace("#", "Blog"),
+            blog
+        );
     } catch (error: any) {
-        return await createResponse(res, error.statusCode ? error.statusCode : httpStatus.SERVICE_UNAVAILABLE, message.VALID_INPUT, {})
-
-
+        return await createResponse(
+            res,
+            error.statusCode ? error.statusCode : httpStatus.SERVICE_UNAVAILABLE,
+            error.message,
+            {}
+        );
     }
-}
+};
 export { signUp, addUser, createBlog };

@@ -72,18 +72,15 @@ const createUser = async (data: any) => {
 const addBlog = async (bodyData: any, fileData: any) => {
     try {
         const { type, title, description, userId } = bodyData;
-        console.log("body Data", type, title, description, userId);
 
-        if (!fileData.path) {
+        if (!fileData || !fileData.path) {
             throw new appError(
                 httpStatus.BAD_REQUEST,
-                message.FIELD_REQUIRED.replace("#", "image")
+                message.FIELD_REQUIRED.replace("#", "Image")
             );
         }
-        const filePath = await fileData.path;
 
-        console.log("fileds Data", fileData);
-        console.log("path", fileData.path);
+        const filePath = await fileData.path;
 
         const blog = await prisma.blog.create({
             data: {
@@ -94,8 +91,6 @@ const addBlog = async (bodyData: any, fileData: any) => {
                 blog_image: filePath,
             },
         });
-
-        console.log("blog created", blog);
 
         return blog;
     } catch (error: any) {
