@@ -14,12 +14,13 @@ datasource db {
 }
 
 model User {
-  id      String   @id @default(uuid())
-  email   String   @unique
-  name    String?
-  isAdmin Boolean  @default(false)
-  profile Profile?
-  Blog    Blog[]
+  id       String   @id @default(uuid())
+  email    String   @unique
+  name     String?
+  password String
+  isAdmin  Boolean  @default(false)
+  profile  Profile?
+  Blog     Blog[]
 }
 
 model Profile {
